@@ -33,3 +33,18 @@ def apply_coupons(cart:[], coupons:[])
   result
 end
 
+def apply_clearance(cart:[])
+  clearance_cart = {}
+  # code here
+  cart.each do |food, info|
+    clearance_cart[food] = {}
+    if info[:clearance] == true
+      clearance_cart[food][:price] = info[:price] * 4 / 5
+    else
+      clearance_cart[food][:price] = info[:price]
+    end
+    clearance_cart[food][:clearance] = info[:clearance]
+    clearance_cart[food][:count] = info[:count]
+  end
+  clearance_cart
+end
