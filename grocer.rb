@@ -1,4 +1,4 @@
-def consolidate_cart(cart:[])
+def consolidate_cart(cart)
   result = {}
   # code here
   cart.each_with_index do |item, i|
@@ -14,7 +14,7 @@ def consolidate_cart(cart:[])
   result
 end
 
-def apply_coupons(cart:[], coupons:[])
+def apply_coupons(cart, coupons)
   result = {}
   # code here#
   cart.each do |food, info|
@@ -33,7 +33,7 @@ def apply_coupons(cart:[], coupons:[])
   result
 end
 
-def apply_clearance(cart:[])
+def apply_clearance(cart)
   clearance_cart = {}
   # code here
   cart.each do |food, info|
@@ -47,4 +47,15 @@ def apply_clearance(cart:[])
     clearance_cart[food][:count] = info[:count]
   end
   clearance_cart
+end
+
+def checkout(cart, coupons)
+  cart = consolidate_cart(cart: cart)
+  cart = apply_coupons(cart: cart, coupons: coupons)
+  cart = apply_clearance(cart: cart)
+  result = 0
+  cart.each do |food, info|
+    result += (info[:price] * info[:count]).to_f
+  end
+  result > 100 ? result * 0.9 : result
 end
